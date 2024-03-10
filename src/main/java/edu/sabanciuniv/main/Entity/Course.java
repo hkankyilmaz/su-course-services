@@ -14,14 +14,15 @@ import java.util.List;
 @Table(name = "course")
 public class Course {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int courseId;
     private String courseName;
-    private String instructorName;
-    private String courseCode;
+    private int courseCode;
     private String courseDescription;
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "courses")
+    @ManyToMany(mappedBy = "courses")
     private List<Student> students;
+    @ManyToMany()
+    @JoinTable(name = "instructer_course", joinColumns = @JoinColumn(name = "courseId"), inverseJoinColumns = @JoinColumn(name = "instructerId"))
+    private List<Instructer> instructers;
 }

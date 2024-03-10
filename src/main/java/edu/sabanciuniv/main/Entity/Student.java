@@ -21,8 +21,11 @@ public class Student {
     private String studentName;
     private String studentSurname;
     private String studentEmail;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany()
     @JoinTable(name = "student_course", joinColumns = @JoinColumn(name = "studentId"), inverseJoinColumns = @JoinColumn(name = "courseId"))
     private List<Course> courses;
+    @ManyToMany()
+    @JoinTable(name = "student_instructer", joinColumns = @JoinColumn(name = "studentId"), inverseJoinColumns = @JoinColumn(name = "instructerId"))
+    private List<Instructer> instructers;
 
 }
