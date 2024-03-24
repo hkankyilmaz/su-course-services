@@ -4,10 +4,7 @@ package edu.sabanciuniv.main.Controller;
 import edu.sabanciuniv.main.Entity.Instructer;
 import edu.sabanciuniv.main.Services.InstructerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,29 +22,29 @@ public class InstructerConroller {
 
 
     @PostMapping("/add")
-    public String addInstructer(Instructer instructer) {
+    public String addInstructer(@RequestBody Instructer instructer) {
         instructerService.addInstructer(instructer);
         return "Instructer added";
     }
 
-    @PostMapping("/delete")
-    public String deleteInstructer(int id) {
+    @DeleteMapping("/delete/{id}")
+    public String deleteInstructer(@PathVariable("id") int id) {
         instructerService.deleteInstructer(id);
         return "Instructer deleted";
     }
 
-    @PostMapping("/update")
-    public String updateInstructer(Instructer instructer) {
+    @PutMapping("/update")
+    public String updateInstructer(@RequestBody Instructer instructer) {
         instructerService.updateInstructer(instructer);
         return "Instructer updated";
     }
 
-    @PostMapping("/get/{id}")
+    @GetMapping("/get/{id}")
     public Instructer getInstructerById(@PathVariable("id") int id) {
         return instructerService.getInstructerById(id);
     }
 
-    @PostMapping("/getAllInstructers")
+    @GetMapping("/getAllInstructers")
     public List<Instructer> getAllInstructers() {
         return instructerService.getAllInstructers();
     }

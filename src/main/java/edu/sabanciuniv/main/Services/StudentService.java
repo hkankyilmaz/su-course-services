@@ -1,6 +1,7 @@
 package edu.sabanciuniv.main.Services;
 
 
+import edu.sabanciuniv.main.CustomException.GeneralCustomException;
 import edu.sabanciuniv.main.Entity.Student;
 import edu.sabanciuniv.main.Repository.StudentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,17 +34,29 @@ public class StudentService {
         return result;
     }
 
-    public void deleteStudent(int id) {
-        studentRepo.deleteById(id);
+    public void deleteStudent(int id) throws GeneralCustomException {
+        if (studentRepo.findById(id).isPresent()) {
+            studentRepo.deleteById(id);
+        } else {
+            throw new GeneralCustomException("Student not found");
+        }
+
 
     }
 
-    public void updateStudent(Student student) {
-        studentRepo.save(student);
+    public void updateStudent(Student student) throws GeneralCustomException {
+        if (studentRepo.findById(student.getStudentId()).isPresent()) {
+            studentRepo.save(student);
+        } else {
+            throw new GeneralCustomException("Student not found");
+        }
 
     }
 
-    public Student getStudentDetailsById(int id) {
+    public Student getStudentDetailsById(int id) throws GeneralCustomException {
+        if (!studentRepo.findById(id).isPresent()) {
+            throw new GeneralCustomException("Student not found");
+        }
         return studentRepo.findById(id).get();
     }
 

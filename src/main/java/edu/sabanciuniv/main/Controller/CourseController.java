@@ -1,6 +1,7 @@
 package edu.sabanciuniv.main.Controller;
 
 
+import edu.sabanciuniv.main.CustomException.GeneralCustomException;
 import edu.sabanciuniv.main.Entity.Course;
 import edu.sabanciuniv.main.Services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +22,12 @@ public class CourseController {
 
 
     @PostMapping("/add")
-    public String addCourse(@RequestBody Course course) {
+    public String addCourse(@RequestBody Course course)  {
         courseService.addCourse(course);
         return "Course added";
     }
 
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public String deleteCourse(@PathVariable("id") int id) {
         courseService.deleteCourse(id);
         return "Course deleted";

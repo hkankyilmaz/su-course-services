@@ -1,6 +1,7 @@
 package edu.sabanciuniv.main.Entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,11 +23,12 @@ public class Instructer {
     private String name;
     private String surname;
     private String email;
-    @ManyToMany(mappedBy = "instructers")
+    @JsonIgnoreProperties("instructer")
+    @ManyToMany
+    @JoinTable(name = "instructor_course",
+            joinColumns = @JoinColumn(name = "instructor_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id"))
     private List<Course> courses;
-    @ManyToMany(mappedBy = "instructers")
-    private List<Student> students;
-
 
 
 }
